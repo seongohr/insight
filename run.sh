@@ -1,2 +1,2 @@
 #!/bin/sh
-python3 ./src/population.py
+python ./src/population.py

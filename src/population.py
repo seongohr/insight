@@ -1,8 +1,8 @@
 import csv
 from collections import OrderedDict
 
-INPUT_PATH = '../input/censustract-00-10.csv'
-OUTPUT_PATH = '../output/report.csv'
+INPUT_PATH = './input/censustract-00-10.csv'
+OUTPUT_PATH = './output/report.csv'
 
 
 def read_file():
