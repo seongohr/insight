@@ -30,8 +30,8 @@ def print_dict(dic):
     not_tract = 0
     for k,v in dic.items():
         print(k, v)
-    #     not_tract += v['not_num_tract10']
-    # print(not_tract)
+        not_tract += v['not_num_tract10']
+    print(not_tract)
 
 
 def make_data(heading, contents):
@@ -42,12 +42,10 @@ def make_data(heading, contents):
     pop00 = heading['POP00']
     pop10 = heading['POP10']
     ppchg = heading['PPCHG']
-    count = 2
 
     for row in contents:
         code = row[CBSA_code]
         if code == '':
-            count += 1
             continue
         not_num_ct = 0
         title = row[CBSA_title]
@@ -80,7 +78,6 @@ def make_data(heading, contents):
             CBSA_dict[code]['pop10'] += int(p10)
             CBSA_dict[code]['ppchg'] += p_ch
             CBSA_dict[code]['not_num_tract10'] += not_num_ct
-        count += 1
 
     return OrderedDict(sorted(CBSA_dict.items()))
 
