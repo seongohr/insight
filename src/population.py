@@ -23,12 +23,15 @@ def write_file(result):
         csv_writer = csv.writer(f, delimiter=',')
         for CBSA, values in result.items():
             csv_writer.writerow([CBSA, values['title'], values['num_tract10'], values['pop00'], values['pop10'],
-                                 round(values['ppchg'] / values['num_tract10'], 2)])
+                                 round(values['ppchg'] / (values['num_tract10'] - values['not_num_tract10']), 2)])
 
 
 def print_dict(dic):
+    not_tract = 0
     for k,v in dic.items():
         print(k, v)
+    #     not_tract += v['not_num_tract10']
+    # print(not_tract)
 
 
 def make_data(heading, contents):
@@ -46,24 +49,18 @@ def make_data(heading, contents):
         if code == '':
             count += 1
             continue
-        # title = '"{}"'.format(row[CBSA_title])
+        not_num_ct = 0
         title = row[CBSA_title]
         ct = row[census_tracts]
         p00 = int(row[pop00])
         p10 = int(row[pop10])
         p_ch = (row[ppchg].replace(',', ''))
 
-        if row[ppchg] == '(X)':
-            if p00 == 0:
-                try:
-                    p_ch = float((((p10 + 1.0) - (p00 + 1.0)) * 100) / (p00 + 1) )
-                except:
-                    print('N/A', count, p00, p10, row[ppchg])
-        else:
-            try:
-                p_ch = float(p_ch)
-            except:
-                print('not a number', count, row[ppchg])
+        try:
+            p_ch = float(p_ch)
+        except:
+            not_num_ct = 1
+            p_ch = 0
 
         if code not in CBSA_dict:
             CBSA_dict[code] = {'title': title,
@@ -71,7 +68,8 @@ def make_data(heading, contents):
                                'num_tract10': 1,
                                'pop00': p00,
                                'pop10': p10,
-                               'ppchg': p_ch
+                               'ppchg': p_ch,
+                               'not_num_tract10': not_num_ct
                                }
         else:
             CBSA_dict[code]['title'] = title
@@ -81,6 +79,7 @@ def make_data(heading, contents):
             CBSA_dict[code]['pop00'] += int(p00)
             CBSA_dict[code]['pop10'] += int(p10)
             CBSA_dict[code]['ppchg'] += p_ch
+            CBSA_dict[code]['not_num_tract10'] += not_num_ct
         count += 1
 
     return OrderedDict(sorted(CBSA_dict.items()))
