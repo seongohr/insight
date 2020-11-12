@@ -50,7 +50,7 @@ I supposed that the name of the input is always 'censustract-00-10.csv'
     * Made a dictionary with a key of each Core Based Statistical Area Code(CBSA)
     * Each key(CBSA) has another dictionary with several keys. The structure is like below.
     
-    '''
+    ~~~
     CBSA_dict = { 
                     CBSA : 
                          { 
@@ -65,7 +65,7 @@ I supposed that the name of the input is always 'censustract-00-10.csv'
                                                -> sum of percent changes / (num_tract10 - not_num_tract10)
                          }
                 }
-    '''
+    ~~~
     
    * Exception Cases
         1. The population in 2000 cannot be converted to numeric data -> set to 0
