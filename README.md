@@ -85,6 +85,7 @@ I supposed that the name of the input is always 'censustract-00-10.csv'
 
 ## Run instructions
 * Run the run.sh file
+* Python3 is used.
 ~~~
     sh run.sh
 ~~~
