@@ -85,6 +85,6 @@ I supposed that the name of the input is always 'censustract-00-10.csv'
 
 ## Run instructions
 * Run the run.sh file
-
- 
+~~~
     sh run.sh
+~~~
